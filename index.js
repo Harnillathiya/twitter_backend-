@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser"
 import userRoute from './routes/auth.js'
 import tweetRoute from './routes/tweet.js'
 import showTweetRoute from './routes/tweet.js'
+import commentRoute from './routes/comment.js'
 
 
 dotenv.config()
@@ -33,6 +34,7 @@ app.use(cookieParser())
 app.use('/api', userRoute );
 app.use('/api', tweetRoute );
 app.use('/api', showTweetRoute );
+app.use('/api', commentRoute);
 
 
 app.listen(Port, ()=>{
