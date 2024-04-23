@@ -18,4 +18,18 @@ export const createTweet = async (req, res) => {
     }
     
   };
-  
+   export const showTweet = async(req, res) => {
+    try {
+      const tweets = await Tweet.find()
+      res.status(200).json({
+          success: true,
+          message: "successful",
+          data: tweets,
+        });
+  } catch (error) {
+      res.status(500).json({ success: true, message: " internal server error" });
+  }
+    
+   }
+
+   
