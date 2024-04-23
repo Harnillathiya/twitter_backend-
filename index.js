@@ -5,6 +5,7 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 import userRoute from './routes/auth.js'
 import tweetRoute from './routes/tweet.js'
+import showTweetRoute from './routes/tweet.js'
 
 
 dotenv.config()
@@ -31,6 +32,7 @@ app.use(cookieParser())
 
 app.use('/api', userRoute );
 app.use('/api', tweetRoute );
+app.use('/api', showTweetRoute );
 
 
 app.listen(Port, ()=>{
