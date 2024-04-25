@@ -1,4 +1,5 @@
 import Tweet from "../Models/Tweet.js";
+import Comments from "../Models/Comment.js";
 
 export const createTweet = async (req, res) => {
   const newTweet = new Tweet(req.body);
@@ -27,6 +28,7 @@ export const showTweet = async (req, res) => {
       data: tweets,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ success: true, message: " internal server error" });
   }
 }

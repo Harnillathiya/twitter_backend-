@@ -38,8 +38,6 @@ export const login = async (req, res) => {
         .status(401)
         .json({ success: false, message: "Incorrect credentials" });
     }
-
-    // If the password is correct, return success
     return res.status(200).json({ success: true, message: "Login successful", user });
   } catch (error) {
     console.log(error);

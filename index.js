@@ -7,6 +7,7 @@ import userRoute from './routes/auth.js'
 import tweetRoute from './routes/tweet.js'
 import showTweetRoute from './routes/tweet.js'
 import commentRoute from './routes/comment.js'
+import showCommentsRoute from './routes/comment.js'
 
 
 dotenv.config()
@@ -35,6 +36,7 @@ app.use('/api', userRoute );
 app.use('/api', tweetRoute );
 app.use('/api', showTweetRoute );
 app.use('/api', commentRoute);
+app.use('/api', showCommentsRoute);
 
 
 app.listen(Port, ()=>{
