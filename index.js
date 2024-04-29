@@ -8,6 +8,8 @@ import tweetRoute from './routes/tweet.js'
 import showTweetRoute from './routes/tweet.js'
 import commentRoute from './routes/comment.js'
 import showCommentsRoute from './routes/comment.js'
+import addHighlight from './routes/tweet.js'
+import removeHighlight from './routes/tweet.js'
 
 
 dotenv.config()
@@ -16,30 +18,32 @@ const app = express()
 const Port = process.env.PORT || 8000
 
 //database conection
-mongoose.set("strictQuery",false);
-const connect  = async ()=>{
-    try{
+mongoose.set("strictQuery", false);
+const connect = async () => {
+    try {
         await mongoose.connect('mongodb://127.0.0.1:27017');
         console.log("MongoDB connection successful");
-    }catch(err){
-        console.log("MongoDB connection failed:",err);
+    } catch (err) {
+        console.log("MongoDB connection failed:", err);
     }
 }
 
 //middlewear
-app.use (express.json())
+app.use(express.json())
 app.use(cors())
 app.use(cookieParser())
 
 
-app.use('/api', userRoute );
-app.use('/api', tweetRoute );
-app.use('/api', showTweetRoute );
+app.use('/api', userRoute);
+app.use('/api', tweetRoute);
+app.use('/api', showTweetRoute);
 app.use('/api', commentRoute);
 app.use('/api', showCommentsRoute);
+app.use('/api', addHighlight);
+app.use('/api', removeHighlight);
 
 
-app.listen(Port, ()=>{
+app.listen(Port, () => {
     connect()
     console.log('server listening on port', Port);
 })
