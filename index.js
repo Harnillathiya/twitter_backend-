@@ -5,11 +5,7 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 import userRoute from './routes/auth.js'
 import tweetRoute from './routes/tweet.js'
-import showTweetRoute from './routes/tweet.js'
 import commentRoute from './routes/comment.js'
-import showCommentsRoute from './routes/comment.js'
-import addHighlight from './routes/tweet.js'
-import removeHighlight from './routes/tweet.js'
 
 
 dotenv.config()
@@ -36,11 +32,7 @@ app.use(cookieParser())
 
 app.use('/api', userRoute);
 app.use('/api', tweetRoute);
-app.use('/api', showTweetRoute);
 app.use('/api', commentRoute);
-app.use('/api', showCommentsRoute);
-app.use('/api', addHighlight);
-app.use('/api', removeHighlight);
 
 
 app.listen(Port, () => {

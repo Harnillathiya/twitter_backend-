@@ -120,3 +120,19 @@ export const removehighlight = async (req, res) => {
     return res.status(500).json({ success: false, message: "Failed to update highlight" });
   }
 };
+
+export const getTweetsWithMostLikes = async (req, res) => {
+  try {
+    const tweetsWithMostLikes = await Tweet.find({ likes: { $gt: 0 } })
+      .sort({ likes: -1 })
+      .limit(5);
+    res.status(200).json({
+      success: true,
+      message: "Successfully fetched tweets with most likes",
+      data: tweetsWithMostLikes,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
