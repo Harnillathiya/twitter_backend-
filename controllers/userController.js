@@ -1,21 +1,16 @@
 import User from "../Models/User.js";
 
-
-
 export const createUser = async (req, res) => {
-  const newUser = new User(req.body);
   try {
-    const saveUser = await newUser.save();
-    res.status(200).json({
+    const newUser = new User(req.body);
+    const savedUser = await newUser.save();
+    res.status(201).json({
       success: true,
-      message: "Successfully Created",
-      data: saveUser,
+      message: "User created successfully",
+      user: savedUser,
     });
-  } catch (err) {
-    console.log(err);
-    res
-      .status(500)
-      .json({ success: false, message: "Failed to Create . Try Again" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Failed to create user" });
   }
 };
-
