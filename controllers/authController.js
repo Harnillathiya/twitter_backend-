@@ -29,3 +29,34 @@ export const login = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+
+
+export const getToken = async (req, res) => {
+  if (!req.headers.authorization) {
+    return res.status(401).json({ error: "Authorization header missing" });
+  }
+
+  const token = req.headers.authorization;
+ 
+   const decodeToken = jwt.decode(token);
+
+  if (!decodeToken || !decodeToken.userId) {
+    return res.status(401).json({ error: "Invalid token" });
+  }
+
+  const id = decodeToken.userId;
+
+  try {
+    const user = await User.findOne({ _id: id }); 
+    if (!user) {
+      return res.status(401).json({ error: "User not found" });
+    }
+    res.json(user);
+    
+    return user
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+}
