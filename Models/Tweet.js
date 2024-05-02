@@ -15,6 +15,9 @@ const tweetSchema = new mongoose.Schema(
         isHighlight: {
             type: Boolean,
         },
+        userId: {
+            type: String,
+        },
         comments: [
             {
                 type: mongoose.Types.ObjectId,
