@@ -2,15 +2,9 @@ import Tweet from "../Models/Tweet.js";
 import jwt from 'jsonwebtoken';
 
 export const createTweet = async (req, res) => {
-  if (!req.headers.authorization) {
-    return res.status(401).json({ error: "Authorization header missing" });
-  }
-  const token = req.headers.authorization;
-  const decodeToken = jwt.decode(token);
-  if (!decodeToken || !decodeToken.userId) {
-    return res.status(401).json({ error: "Invalid token" });
-  }
-  const userId = decodeToken.userId;
+  const userId = req.user._id;
+  console.log(userId);
+
   const newTweet = new Tweet({ ...req.body, userId });
   try {
     const savedTweet = await newTweet.save();
@@ -25,20 +19,10 @@ export const createTweet = async (req, res) => {
   }
 };
 
-
-
 export const showTweet = async (req, res) => {
-  if (!req.headers.authorization) {
-    return res.status(401).json({ error: "Authorization header missing" });
-  }
-  const token = req.headers.authorization;
-  const decodeToken = jwt.decode(token);
-  if (!decodeToken || !decodeToken.userId) {
-    return res.status(401).json({ error: "Invalid token" });
-  }
-  const userId = decodeToken.userId;
+  const userId = req.user._id;
   try {
-    const tweets = await Tweet.find({ userId }).populate('comments')
+    const tweets = await Tweet.find({ userId }).populate('comments');
     console.log(tweets);
     res.status(200).json({
       success: true,
@@ -47,9 +31,10 @@ export const showTweet = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: true, message: " internal server error" });
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
-}
+};
+
 
 export const showAllTweet = async (req, res) => {
   try {
