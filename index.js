@@ -3,7 +3,7 @@ import dotenv from "dotenv"
 import mongoose from "mongoose"
 import cors from "cors"
 import cookieParser from "cookie-parser"
-import userRoute from './routes/auth.js'
+import authRoute from './routes/auth.js'
 import tweetRoute from './routes/tweet.js'
 import commentRoute from './routes/comment.js'
 
@@ -30,7 +30,7 @@ app.use(cors())
 app.use(cookieParser())
 
 
-app.use('/api', userRoute);
+app.use('/api', authRoute);
 app.use('/api', tweetRoute);
 app.use('/api', commentRoute);
 

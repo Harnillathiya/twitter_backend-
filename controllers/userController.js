@@ -14,3 +14,17 @@ export const createUser = async (req, res) => {
     res.status(500).json({ success: false, message: "Failed to create user" });
   }
 };
+
+export const findAllUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).json({
+      success: true,
+      message: "Users found successfully",
+      users: users,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Failed to find users" });
+  }
+};
