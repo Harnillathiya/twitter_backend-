@@ -28,6 +28,7 @@ export const findAllUsers = async (req, res) => {
     res.status(500).json({ success: false, message: "Failed to find users" });
   }
 };
+
 export const getUsers = async (req, res) => {
   try {
     const users = await User.find();
