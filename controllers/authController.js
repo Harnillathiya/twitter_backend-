@@ -73,7 +73,7 @@ export const getUserInformation = async (req, res) => {
     }
 
     res.status(200).json({ success: true, data: user });
-    console.log(user,'yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy');
+    // console.log(user,'yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy');
   } catch (error) {
     console.error(error);
     if (error.name === 'TokenExpiredError') {
@@ -82,4 +82,3 @@ export const getUserInformation = async (req, res) => {
     res.status(500).json({ success: false, message: "Failed to fetch user information" });
   }
 };
-
