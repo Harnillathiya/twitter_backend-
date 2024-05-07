@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import User from "../Models/User.js";
 
 export const login = async (req, res) => {
@@ -17,20 +17,22 @@ export const login = async (req, res) => {
         .status(401)
         .json({ success: false, message: "Incorrect credentials" });
     }
-    const token = jwt.sign({
-      userId: user._id
-    },
+    const token = jwt.sign(
+      {
+        userId: user._id,
+      },
       process.env.JWT_SECRET,
-      { expiresIn: '1h' });
+      { expiresIn: "24h" }
+    );
 
-    return res.status(200).json({ success: true, message: "Login successful", user, token });
+    return res
+      .status(200)
+      .json({ success: true, message: "Login successful", user, token });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: error.message });
   }
 };
-
-
 
 export const getToken = async (req, res) => {
   if (!req.headers.authorization) {
@@ -54,13 +56,12 @@ export const getToken = async (req, res) => {
     }
     res.json(user);
 
-    return user
+    return user;
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal server error" });
   }
-}
-
+};
 
 export const getUserInformation = async (req, res) => {
   try {
@@ -69,17 +70,23 @@ export const getUserInformation = async (req, res) => {
     const user = await User.findById(userId);
 
     if (!user) {
-      return res.status(404).json({ success: false, message: "User not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
     }
 
     res.status(200).json({ success: true, data: user });
-    console.log(user,'yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy');
+    console.log(
+      user,
+      "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+    );
   } catch (error) {
     console.error(error);
-    if (error.name === 'TokenExpiredError') {
+    if (error.name === "TokenExpiredError") {
       return res.status(401).json({ success: false, message: "Token expired" });
     }
-    res.status(500).json({ success: false, message: "Failed to fetch user information" });
+    res
+      .status(500)
+      .json({ success: false, message: "Failed to fetch user information" });
   }
 };
-

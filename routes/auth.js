@@ -2,7 +2,6 @@ import express from "express";
 import {
   createUser,
   findAllUsers,
-  getUsers,
 } from "../controllers/userController.js";
 import {
   getToken,
@@ -17,7 +16,6 @@ router.post("/register", createUser);
 router.post("/login", login);
 router.get("/token", getToken);
 router.get("/users", findAllUsers);
-router.get("/getUsers", getUsers);
 router.get("/userInformation", authMiddleware, getUserInformation);
 
 export default router;
