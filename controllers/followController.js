@@ -5,7 +5,6 @@ export const followUser = async (req, res) => {
     try {
         const target = req.body.id;
         const source = req.user._id;
-
         const existingFollow = await Follow.findOne({ target, source });
         if (existingFollow) {
             return res.status(400).json({
@@ -13,15 +12,15 @@ export const followUser = async (req, res) => {
                 message: "Already following this user",
             });
         }
+        
         try {
             const user = await User.findById(target);
-            // console.log("Retrieved tweet:", user);
             if (!user) {
                 return res
                     .status(404)
                     .json({ success: false, message: "user not found" });
             }
-            user.followed = true;
+            user.isFollow = true;
             await user.save();
 
         } catch(err) {
@@ -57,7 +56,6 @@ export const unfollowUser = async (req, res) => {
         const unfollow = await Follow.findOneAndDelete({ target, source });
         try {
             const user = await User.findById(target);
-            // console.log("Retrieved tweet:", user);
             if (!user) {
                 return res
                     .status(404)
