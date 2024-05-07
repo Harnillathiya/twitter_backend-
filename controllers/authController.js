@@ -22,8 +22,7 @@ export const login = async (req, res) => {
         userId: user._id,
       },
       process.env.JWT_SECRET,
-      { expiresIn: "24h" }
-    );
+      { expiresIn: '24h' });
 
     return res
       .status(200)
@@ -76,10 +75,6 @@ export const getUserInformation = async (req, res) => {
     }
 
     res.status(200).json({ success: true, data: user });
-    console.log(
-      user,
-      "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
-    );
   } catch (error) {
     console.error(error);
     if (error.name === "TokenExpiredError") {

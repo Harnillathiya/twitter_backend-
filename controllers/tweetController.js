@@ -1,9 +1,7 @@
 import Tweet from "../Models/Tweet.js";
-import jwt from "jsonwebtoken";
 
 export const createTweet = async (req, res) => {
   const userId = req.user._id;
-  console.log(userId);
 
   const newTweet = new Tweet({ ...req.body, userId });
   try {
@@ -25,7 +23,6 @@ export const showTweet = async (req, res) => {
   const userId = req.user._id;
   try {
     const tweets = await Tweet.find({ userId }).populate("comments");
-    console.log(tweets);
     res.status(200).json({
       success: true,
       message: "successful",
@@ -41,7 +38,6 @@ export const showTweet = async (req, res) => {
 export const showAllTweet = async (req, res) => {
   try {
     const tweets = await Tweet.find().populate("comments");
-    console.log(tweets);
     res.status(200).json({
       success: true,
       message: "successful",
@@ -105,10 +101,8 @@ export const unlikeTweet = async (req, res) => {
 
 export const addHighlight = async (req, res) => {
   const { tweetId } = req.params; 
-  console.log("Received tweetId:", tweetId);
   try {
     const tweet = await Tweet.findById(tweetId);
-    console.log("Retrieved tweet:", tweet);
     if (!tweet) {
       return res
         .status(404)
@@ -116,7 +110,6 @@ export const addHighlight = async (req, res) => {
     }
     tweet.isHighlight = true;
     await tweet.save();
-    console.log("Updated tweet:", tweet);
     return res.status(200).json({
       success: true,
       message: `Tweet highlighted successfully`,
@@ -135,9 +128,7 @@ export const addHighlight = async (req, res) => {
 
 export const removehighlight = async (req, res) => {
   const { tweetId } = req.params;
-  console.log(tweetId);
   const { isHighlight } = req.body;
-  console.log(isHighlight);
   try {
     const tweet = await Tweet.findById(tweetId);
     if (!tweet) {
