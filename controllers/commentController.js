@@ -25,7 +25,6 @@ export const createComment = async (req, res) => {
 export const showComments = async (req, res) => {
     try {
         const tweetId = req.params.id;
-        console.log("Fetching comments for tweet:", tweetId);
         const tweet = await Tweet.findOne({ _id: tweetId }).populate("comments");
         if (!tweet) {
             return res.status(404).json({ success: false, message: "Tweet not found" });
